@@ -103,7 +103,7 @@ defmodule ForkPoison.Mixfile do
       files: ~w(lib mix.exs README.md LICENSE VERSION),
       maintainers: ["Jaeyson Anthony Y. <hello@jaeyson.dev>"],
       licenses: ["0BSD"],
-      links: %{"GitHub" => "https://github.com/jaeyson/poison"}
+      links: %{"GitHub" => "https://github.com/jaeyson/fork_poison"}
     ]
   end
 
