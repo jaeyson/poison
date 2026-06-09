@@ -1,4 +1,10 @@
-# Poison Changelog
+# ForkPoison Changelog
+
+## v6.0.1
+
+### Chores
+* Forked from origin ForkPoison library to update Decimal v3
+* Update deps
 
 ## v6.0.0
 
@@ -7,14 +13,14 @@
 * Support Erlang 27 and Elixir 1.17
     [#214](https://github.com/devinus/poison/issues/214)
     [#222](https://github.com/devinus/poison/issues/222)
-* Reintroduce `Poison.encode_to_iodata!/1` for Phoenix compatibility
+* Reintroduce `ForkPoison.encode_to_iodata!/1` for Phoenix compatibility
     [#172](https://github.com/devinus/poison/issues/172)
     [#206](https://github.com/devinus/poison/pull/206)
-* Make [`:html_safe`](`t:Poison.Encoder.escape/0`) encode option follow OWASP
+* Make [`:html_safe`](`t:ForkPoison.Encoder.escape/0`) encode option follow OWASP
   recommended HTML escaping
     [#194](https://github.com/devinus/poison/issues/194)
 * Add `Date.Range` encoding
-* Allow [`:as`](`t:Poison.Decoder.as/0`) decode option to be a function
+* Allow [`:as`](`t:ForkPoison.Decoder.as/0`) decode option to be a function
     [#207](https://github.com/devinus/poison/pull/207)
 * Add a [CHANGELOG](CHANGELOG.md)
     [#105](https://github.com/devinus/poison/issues/105)

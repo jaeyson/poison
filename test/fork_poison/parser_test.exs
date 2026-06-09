@@ -1,9 +1,9 @@
-defmodule Poison.ParserTest do
+defmodule ForkPoison.ParserTest do
   use ExUnit.Case, async: true
   use ExUnitProperties
 
-  import Poison.{TestGenerators, Parser}
-  alias Poison.ParseError
+  import ForkPoison.{TestGenerators, Parser}
+  alias ForkPoison.ParseError
 
   test "numbers" do
     assert_raise ParseError, "unexpected end of input at position 1", fn ->
@@ -272,7 +272,7 @@ defmodule Poison.ParserTest do
                 decimal: boolean()
               })
           ) do
-      assert {:ok, _} = parse(Poison.encode!(value, options))
+      assert {:ok, _} = parse(ForkPoison.encode!(value, options))
     end
   end
 

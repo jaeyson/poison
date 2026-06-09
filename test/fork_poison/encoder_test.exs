@@ -1,11 +1,11 @@
-defmodule Poison.EncoderTest do
+defmodule ForkPoison.EncoderTest do
   use ExUnit.Case, async: true
   use ExUnitProperties
 
-  import Poison.TestGenerators
+  import ForkPoison.TestGenerators
 
-  import Poison, only: [encode!: 1, encode!: 2]
-  alias Poison.{EncodeError, Encoder}
+  import ForkPoison, only: [encode!: 1, encode!: 2]
+  alias ForkPoison.{EncodeError, Encoder}
 
   test "Atom" do
     assert encode!(nil) == "null"
@@ -117,7 +117,7 @@ defmodule Poison.EncoderTest do
     multi_key_map = %{"foo" => "foo1", :foo => "foo2"}
     assert encode!(multi_key_map) == ~s({"foo":"foo1","foo":"foo2"})
     error = %EncodeError{message: "duplicate key found: :foo", value: "foo"}
-    assert Poison.encode(multi_key_map, strict_keys: true) == {:error, error}
+    assert ForkPoison.encode(multi_key_map, strict_keys: true) == {:error, error}
   end
 
   property "Map" do
@@ -220,17 +220,17 @@ defmodule Poison.EncoderTest do
   end
 
   defmodule Derived do
-    @derive [Poison.Encoder]
+    @derive [ForkPoison.Encoder]
     defstruct name: ""
   end
 
   defmodule DerivedUsingOnly do
-    @derive {Poison.Encoder, only: [:name]}
+    @derive {ForkPoison.Encoder, only: [:name]}
     defstruct name: "", size: 0
   end
 
   defmodule DerivedUsingExcept do
-    @derive {Poison.Encoder, except: [:name]}
+    @derive {ForkPoison.Encoder, except: [:name]}
     defstruct name: "", size: 0
   end
 
@@ -241,7 +241,7 @@ defmodule Poison.EncoderTest do
   test "@derive" do
     derived = %Derived{name: "derived"}
     non_derived = %NonDerived{name: "non-derived"}
-    assert Encoder.impl_for!(derived) == Encoder.Poison.EncoderTest.Derived
+    assert Encoder.impl_for!(derived) == Encoder.ForkPoison.EncoderTest.Derived
     assert Encoder.impl_for!(non_derived) == Encoder.Any
 
     derived_using_only = %DerivedUsingOnly{
@@ -249,7 +249,7 @@ defmodule Poison.EncoderTest do
       size: 10
     }
 
-    assert Poison.decode!(encode!(derived_using_only)) == %{
+    assert ForkPoison.decode!(encode!(derived_using_only)) == %{
              "name" => "derived using :only"
            }
 
@@ -258,7 +258,7 @@ defmodule Poison.EncoderTest do
       size: 10
     }
 
-    assert Poison.decode!(encode!(derived_using_except)) == %{"size" => 10}
+    assert ForkPoison.decode!(encode!(derived_using_except)) == %{"size" => 10}
   end
 
   test "EncodeError" do

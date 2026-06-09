@@ -1,5 +1,5 @@
-defmodule PoisonTest do
+defmodule ForkPoisonTest do
   use ExUnit.Case, async: true
 
-  doctest Poison
+  doctest ForkPoison
 end

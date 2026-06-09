@@ -1,4 +1,4 @@
-defmodule Poison.DecodeError do
+defmodule ForkPoison.DecodeError do
   @type t :: %__MODULE__{message: String.t(), value: any}
 
   defexception message: nil, value: nil
@@ -12,10 +12,10 @@ defmodule Poison.DecodeError do
   end
 end
 
-defmodule Poison.Decode do
+defmodule ForkPoison.Decode do
   @moduledoc false
 
-  alias Poison.Decoder
+  alias ForkPoison.Decoder
 
   @compile :inline
   @compile :inline_list_funcs
@@ -110,7 +110,7 @@ defmodule Poison.Decode do
   end
 end
 
-defprotocol Poison.Decoder do
+defprotocol ForkPoison.Decoder do
   @fallback_to_any true
 
   @type keys :: :atoms | :atoms!
@@ -128,7 +128,7 @@ defprotocol Poison.Decoder do
   def decode(value, options)
 end
 
-defimpl Poison.Decoder, for: Any do
+defimpl ForkPoison.Decoder, for: Any do
   def decode(value, _options) do
     value
   end

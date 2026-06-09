@@ -1,4 +1,4 @@
-defmodule Poison.EncodeError do
+defmodule ForkPoison.EncodeError do
   @type t :: %__MODULE__{message: String.t(), value: any}
 
   defexception message: nil, value: nil
@@ -12,14 +12,14 @@ defmodule Poison.EncodeError do
   end
 end
 
-defmodule Poison.Encode do
+defmodule ForkPoison.Encode do
   @moduledoc false
 
-  alias Poison.{EncodeError, Encoder}
+  alias ForkPoison.{EncodeError, Encoder}
 
   defmacro __using__(_) do
     quote do
-      alias Poison.EncodeError
+      alias ForkPoison.EncodeError
       alias String.Chars
 
       @compile {:inline, encode_name: 1}
@@ -44,7 +44,7 @@ defmodule Poison.Encode do
   end
 end
 
-defmodule Poison.Pretty do
+defmodule ForkPoison.Pretty do
   @moduledoc false
 
   defmacro __using__(_) do
@@ -77,7 +77,7 @@ defmodule Poison.Pretty do
   end
 end
 
-defprotocol Poison.Encoder do
+defprotocol ForkPoison.Encoder do
   @fallback_to_any true
 
   @type escape :: :unicode | :javascript | :html_safe
@@ -105,17 +105,17 @@ defprotocol Poison.Encoder do
   def encode(value, options)
 end
 
-defimpl Poison.Encoder, for: Atom do
+defimpl ForkPoison.Encoder, for: Atom do
   def encode(nil, _options), do: "null"
   def encode(true, _options), do: "true"
   def encode(false, _options), do: "false"
 
   def encode(atom, options) do
-    Poison.Encoder.BitString.encode(Atom.to_string(atom), options)
+    ForkPoison.Encoder.BitString.encode(Atom.to_string(atom), options)
   end
 end
 
-defimpl Poison.Encoder, for: BitString do
+defimpl ForkPoison.Encoder, for: BitString do
   import Bitwise
 
   @compile :inline
@@ -227,7 +227,7 @@ defimpl Poison.Encoder, for: BitString do
   defp chunk_size(<<>>, _mode, acc), do: acc
 
   defp chunk_size(other, _mode, _acc) do
-    raise Poison.EncodeError, value: other
+    raise ForkPoison.EncodeError, value: other
   end
 
   @compile {:inline, seq: 1}
@@ -252,22 +252,22 @@ defimpl Poison.Encoder, for: BitString do
   end
 end
 
-defimpl Poison.Encoder, for: Integer do
+defimpl ForkPoison.Encoder, for: Integer do
   def encode(integer, _options) do
     Integer.to_string(integer)
   end
 end
 
-defimpl Poison.Encoder, for: Float do
+defimpl ForkPoison.Encoder, for: Float do
   def encode(float, _options) do
     Float.to_string(float)
   end
 end
 
-defimpl Poison.Encoder, for: Map do
-  alias Poison.{Encoder, EncodeError}
+defimpl ForkPoison.Encoder, for: Map do
+  alias ForkPoison.{Encoder, EncodeError}
 
-  use Poison.{Encode, Pretty}
+  use ForkPoison.{Encode, Pretty}
 
   @compile :inline
   @compile :inline_list_funcs
@@ -346,8 +346,8 @@ defimpl Poison.Encoder, for: Map do
   end
 end
 
-defimpl Poison.Encoder, for: List do
-  alias Poison.{Encoder, Pretty}
+defimpl ForkPoison.Encoder, for: List do
+  alias ForkPoison.{Encoder, Pretty}
 
   use Pretty
 
@@ -379,8 +379,8 @@ defimpl Poison.Encoder, for: List do
   end
 end
 
-defimpl Poison.Encoder, for: [Range, Stream, MapSet, Date.Range] do
-  alias Poison.{Encoder, Pretty}
+defimpl ForkPoison.Encoder, for: [Range, Stream, MapSet, Date.Range] do
+  alias ForkPoison.{Encoder, Pretty}
 
   use Pretty
 
@@ -410,28 +410,28 @@ defimpl Poison.Encoder, for: [Range, Stream, MapSet, Date.Range] do
   end
 end
 
-defimpl Poison.Encoder, for: [Date, Time, NaiveDateTime, DateTime] do
+defimpl ForkPoison.Encoder, for: [Date, Time, NaiveDateTime, DateTime] do
   def encode(value, options) do
-    Poison.Encoder.BitString.encode(@for.to_iso8601(value), options)
+    ForkPoison.Encoder.BitString.encode(@for.to_iso8601(value), options)
   end
 end
 
-defimpl Poison.Encoder, for: URI do
+defimpl ForkPoison.Encoder, for: URI do
   def encode(value, options) do
-    Poison.Encoder.BitString.encode(@for.to_string(value), options)
+    ForkPoison.Encoder.BitString.encode(@for.to_string(value), options)
   end
 end
 
 if Code.ensure_loaded?(Decimal) do
-  defimpl Poison.Encoder, for: Decimal do
+  defimpl ForkPoison.Encoder, for: Decimal do
     def encode(value, _options) do
       Decimal.to_string(value)
     end
   end
 end
 
-defimpl Poison.Encoder, for: Any do
-  alias Poison.{Encoder, EncodeError}
+defimpl ForkPoison.Encoder, for: Any do
+  alias ForkPoison.{Encoder, EncodeError}
 
   defmacro __deriving__(module, struct, options) do
     deriving(module, struct, options)

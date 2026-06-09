@@ -43,7 +43,7 @@ defmodule Bench do
         for name <- encode_inputs(), into: %{} do
           name
           |> read_data()
-          |> Poison.decode!()
+          |> ForkPoison.decode!()
           |> (&{name, &1}).()
         end,
       formatters: [
@@ -70,7 +70,7 @@ defmodule Bench do
       "jiffy" => &:jiffy.decode(&1, [:return_maps, :use_nil]),
       "jsone" => &:jsone.decode(&1, [:reject_invalid_utf8, duplicate_map_keys: :last]),
       "JSX" => &JSX.decode!(&1, [:strict]),
-      "Poison" => &Poison.Parser.parse!/1,
+      "ForkPoison" => &ForkPoison.Parser.parse!/1,
       "Tiny" => &Tiny.decode!/1,
       "Thoas" => &:thoas.decode/1
     }
@@ -88,7 +88,7 @@ defmodule Bench do
       "jiffy" => &:jiffy.encode(&1, [:use_nil]),
       "jsone" => &:jsone.encode/1,
       "JSX" => &JSX.encode!(&1, [:strict]),
-      "Poison" => &Poison.encode_to_iodata!/1,
+      "ForkPoison" => &ForkPoison.encode_to_iodata!/1,
       "Tiny" => &Tiny.encode_to_iodata!/1,
       "Thoas" => &:thoas.encode_to_iodata/1
     }

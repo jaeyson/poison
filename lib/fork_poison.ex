@@ -1,21 +1,21 @@
-defmodule Poison do
+defmodule ForkPoison do
   readme_path = [__DIR__, "..", "README.md"] |> Path.join() |> Path.expand()
 
   @external_resource readme_path
   @moduledoc readme_path |> File.read!() |> String.trim()
 
-  alias Poison.{Decode, DecodeError, Decoder}
-  alias Poison.{EncodeError, Encoder}
-  alias Poison.{ParseError, Parser}
+  alias ForkPoison.{Decode, DecodeError, Decoder}
+  alias ForkPoison.{EncodeError, Encoder}
+  alias ForkPoison.{ParseError, Parser}
 
   @doc """
   Encode a value to JSON IO data.
 
-      iex> Poison.encode_to_iodata([1, 2, 3])
+      iex> ForkPoison.encode_to_iodata([1, 2, 3])
       {:ok, [91, ["1", 44, "2", 44, "3"], 93]}
 
-      iex> Poison.encode_to_iodata({})
-      {:error, %Poison.EncodeError{message: nil, value: {}}}
+      iex> ForkPoison.encode_to_iodata({})
+      {:error, %ForkPoison.EncodeError{message: nil, value: {}}}
   """
   @spec encode_to_iodata(Encoder.t()) :: {:ok, iodata} | {:error, EncodeError.t()}
   @spec encode_to_iodata(Encoder.t(), Encoder.options() | [Encoder.option()]) ::
@@ -30,11 +30,11 @@ defmodule Poison do
   @doc """
   Encode a value to JSON IO data. Raises an exception on error.
 
-      iex> Poison.encode_to_iodata!([1, 2, 3])
+      iex> ForkPoison.encode_to_iodata!([1, 2, 3])
       [91, ["1", 44, "2", 44, "3"], 93]
 
-      iex> Poison.encode_to_iodata!({})
-      ** (Poison.EncodeError) unable to encode value: {}
+      iex> ForkPoison.encode_to_iodata!({})
+      ** (ForkPoison.EncodeError) unable to encode value: {}
   """
   @spec encode_to_iodata!(Encoder.t()) :: iodata
   @spec encode_to_iodata!(Encoder.t(), Encoder.options() | [Encoder.option()]) :: iodata
@@ -51,11 +51,11 @@ defmodule Poison do
   @doc """
   Encode a value to JSON.
 
-      iex> Poison.encode([1, 2, 3])
+      iex> ForkPoison.encode([1, 2, 3])
       {:ok, "[1,2,3]"}
 
-      iex> Poison.encode({})
-      {:error, %Poison.EncodeError{message: nil, value: {}}}
+      iex> ForkPoison.encode({})
+      {:error, %ForkPoison.EncodeError{message: nil, value: {}}}
   """
   @spec encode(Encoder.t()) :: {:ok, iodata} | {:error, EncodeError.t()}
   @spec encode(Encoder.t(), Encoder.options() | [Encoder.option()]) ::
@@ -70,11 +70,11 @@ defmodule Poison do
   @doc """
   Encode a value to JSON. Raises an exception on error.
 
-      iex> Poison.encode!([1, 2, 3])
+      iex> ForkPoison.encode!([1, 2, 3])
       "[1,2,3]"
 
-      iex> Poison.encode!({})
-      ** (Poison.EncodeError) unable to encode value: {}
+      iex> ForkPoison.encode!({})
+      ** (ForkPoison.EncodeError) unable to encode value: {}
   """
   @spec encode!(Encoder.t()) :: binary
   @spec encode!(Encoder.t(), Encoder.options() | [Encoder.option()]) :: binary
@@ -91,11 +91,11 @@ defmodule Poison do
   @doc """
   Decode JSON to a value.
 
-      iex> Poison.decode("[1,2,3]")
+      iex> ForkPoison.decode("[1,2,3]")
       {:ok, [1, 2, 3]}
 
-      iex> Poison.decode("[")
-      {:error, %Poison.ParseError{data: "[", skip: 1, value: nil}}
+      iex> ForkPoison.decode("[")
+      {:error, %ForkPoison.ParseError{data: "[", skip: 1, value: nil}}
   """
   @spec decode(iodata) :: {:ok, Parser.t()} | {:error, ParseError.t() | DecodeError.t()}
   @spec decode(iodata, Decoder.options() | [Decoder.option()]) ::
@@ -110,11 +110,11 @@ defmodule Poison do
   @doc """
   Decode JSON to a value. Raises an exception on error.
 
-      iex> Poison.decode!("[1,2,3]")
+      iex> ForkPoison.decode!("[1,2,3]")
       [1, 2, 3]
 
-      iex> Poison.decode!("[")
-      ** (Poison.ParseError) unexpected end of input at position 1
+      iex> ForkPoison.decode!("[")
+      ** (ForkPoison.ParseError) unexpected end of input at position 1
   """
   @spec decode!(iodata) :: Parser.t()
   @spec decode!(iodata, Decoder.options() | [Decoder.option()]) :: Decoder.t()

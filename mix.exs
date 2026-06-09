@@ -1,4 +1,4 @@
-defmodule Poison.Mixfile do
+defmodule ForkPoison.Mixfile do
   use Mix.Project
 
   version_path = Path.join([__DIR__, "VERSION"])
@@ -8,12 +8,12 @@ defmodule Poison.Mixfile do
 
   def project do
     [
-      app: :poison,
-      name: "Poison",
+      app: :fork_poison,
+      name: "ForkForkPoison",
       version: @version,
       elixir: "~> 1.12",
-      description: "An incredibly fast, pure Elixir JSON library",
-      source_url: "https://github.com/devinus/poison",
+      description: "An incredibly fast, pure Elixir JSON library, Forked from Poison Library",
+      source_url: "https://github.com/jaeyson/fork_poison",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() not in [:dev, :test],
       elixirc_paths: elixirc_paths(),
@@ -87,8 +87,8 @@ defmodule Poison.Mixfile do
 
   defp docs do
     [
-      main: "Poison",
-      canonical: "https://hexdocs.pm/poison",
+      main: "ForkForkPoison",
+      canonical: "https://hexdocs.pm/fork_poison",
       extras: [
         "README.md",
         "CHANGELOG.md": [title: "Changelog"],
@@ -101,9 +101,9 @@ defmodule Poison.Mixfile do
   defp package do
     [
       files: ~w(lib mix.exs README.md LICENSE VERSION),
-      maintainers: ["Devin Alexander Torres <d@devinus.io>"],
+      maintainers: ["Jaeyson Anthony Y. <hello@jaeyson.dev>"],
       licenses: ["0BSD"],
-      links: %{"GitHub" => "https://github.com/devinus/poison"}
+      links: %{"GitHub" => "https://github.com/jaeyson/poison"}
     ]
   end
 

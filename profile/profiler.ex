@@ -1,7 +1,7 @@
-defmodule Poison.Profiler do
+defmodule ForkPoison.Profiler do
   @moduledoc false
 
-  import Poison.Parser
+  import ForkPoison.Parser
 
   data_dir = Path.expand(Path.join(__DIR__, "../bench/data"))
 

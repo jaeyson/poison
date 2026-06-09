@@ -1,4 +1,4 @@
-defmodule Poison.TestGenerators do
+defmodule ForkPoison.TestGenerators do
   use ExUnitProperties
 
   def json_string(options \\ []) do

@@ -1,4 +1,4 @@
-defmodule Poison.MissingDependencyError do
+defmodule ForkPoison.MissingDependencyError do
   @type t :: %__MODULE__{name: String.t()}
 
   defexception name: nil
@@ -8,9 +8,9 @@ defmodule Poison.MissingDependencyError do
   end
 end
 
-defmodule Poison.ParseError do
+defmodule ForkPoison.ParseError do
   alias Code.Identifier
-  alias Poison.Parser
+  alias ForkPoison.Parser
 
   @type t :: %__MODULE__{data: String.t(), skip: non_neg_integer, value: Parser.t()}
 
@@ -48,7 +48,7 @@ defmodule Poison.ParseError do
   end
 end
 
-defmodule Poison.Parser do
+defmodule ForkPoison.Parser do
   @moduledoc """
   An RFC 8259 and ECMA 404 conforming JSON parser.
 
@@ -61,7 +61,7 @@ defmodule Poison.Parser do
 
   import Bitwise
 
-  alias Poison.{Decoder, ParseError}
+  alias ForkPoison.{Decoder, ParseError}
 
   @type scalar :: nil | true | false | float | integer | String.t()
 
@@ -400,7 +400,7 @@ defmodule Poison.Parser do
     end
   else
     defp number_complete(true, _skip, _sign, _coef, _exp) do
-      raise Poison.MissingDependencyError, name: "Decimal"
+      raise ForkPoison.MissingDependencyError, name: "Decimal"
     end
   end
 
