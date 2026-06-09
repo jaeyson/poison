@@ -9,7 +9,7 @@ defmodule ForkPoison.Mixfile do
   def project do
     [
       app: :fork_poison,
-      name: "ForkForkPoison",
+      name: "ForkPoison",
       version: @version,
       elixir: "~> 1.12",
       description: "An incredibly fast, pure Elixir JSON library, Forked from Poison Library",
@@ -87,7 +87,7 @@ defmodule ForkPoison.Mixfile do
 
   defp docs do
     [
-      main: "ForkForkPoison",
+      main: "ForkPoison",
       canonical: "https://hexdocs.pm/fork_poison",
       extras: [
         "README.md",

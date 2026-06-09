@@ -1,5 +1,10 @@
 # ForkPoison Changelog
 
+## v6.0.2
+
+### Chores
+* Typo on package name (ForkForkPoison)
+
 ## v6.0.1
 
 ### Chores
